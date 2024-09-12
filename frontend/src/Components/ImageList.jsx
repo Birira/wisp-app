@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import BookService from "../Services/BookService";
+import env from "react-dotenv";
 
 const bookService = new BookService();
 
@@ -25,7 +26,7 @@ const ImageList = () => {
         {Libros.map((libro) => (
           <div key={libro._id} className="col-3 p-3">
             <a href={`/img/${libro._id}`}>
-            <img src={`http://localhost:3000/${libro.image}`} className="card-img-top rounded" width={300} height={400} />
+            <img src={`${import.meta.env.VITE_API_URL}/${libro.image}`} className="card-img-top rounded" width={300} height={400} />
             </a>
 
             <div className="card-body p-4">

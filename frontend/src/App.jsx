@@ -15,22 +15,17 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
 
   return (
-    <>
-      <div className='bg-dark text-warning'>
-        <BrowserRouter>
-          <Nav />
-          <Routes>
-            <Route path='/' element={<ImageList />}></Route>
-            <Route path='/Cart' element={<Cart />}></Route>
-          </Routes>
-          
-        </BrowserRouter>
-        <div>
-          <About />
-          <Contact />
-        </div>
-      </div>
-    </>
+    <div className='bg-dark text-warning'>
+      <BrowserRouter>
+        <Nav />
+        <Routes>
+          <Route path='/' element={<ImageList />}></Route>
+          <Route path='/Cart' element={<Cart />}></Route>
+        </Routes>
+
+      </BrowserRouter>
+
+    </div>
   )
 }
 
