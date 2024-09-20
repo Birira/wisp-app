@@ -1,14 +1,14 @@
 import React from 'react'
 import cart_icon from "../assets/icon.svg"
 import { Link } from 'react-router-dom';
-import { } from "../css/Nav.css"
+import "../css/Nav.css"
 
 const Nav = () => {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container px-4">
-                <a className="navbar-brand" href="/">Inicio</a>
+                <Link to="/" className="navbar-brand">Inicio</Link>
             </div>
             <div className="row px-4">
                 <div className="col">

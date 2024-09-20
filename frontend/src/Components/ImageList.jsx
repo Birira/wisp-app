@@ -1,22 +1,13 @@
-import { useEffect, useState } from 'react';
-import BookService from "../Services/BookService";
-import env from "react-dotenv";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { ShopContext } from "../Context/ShopContext";
+import About from "./About";
+import Contact from "./Contact";
+import { useCart } from "../hooks/useCart.js";
 
-const bookService = new BookService();
-
-const books = await bookService.getBooks();
-const booksR = books.reverse();
-
-console.log(books);
 const ImageList = () => {
-
-  const [Libros, setLibros] = useState([]);
-
-  useEffect(() => {
-    setLibros(booksR)
-  }, []);
-
-
+  const { addToCart, cart } = useCart();
+  const Libros = useContext(ShopContext);
   return (
     <section className="contianer m-5">
       <h1 className='text-center'>Galería de Fotografía</h1>
@@ -25,22 +16,25 @@ const ImageList = () => {
       <div className="row mb-5">
         {Libros.map((libro) => (
           <div key={libro._id} className="col-3 p-3">
-            <a href={`/img/${libro._id}`}>
-            <img src={`${import.meta.env.VITE_API_URL}/${libro.image}`} className="card-img-top rounded" width={300} height={400} />
-            </a>
-
+            <Link to={`/img/${libro._id}`}>
+              <img src={`${import.meta.env.VITE_API_URL}${libro.image}`} className="card-img-top rounded" width={300} height={400} />
+            </Link>
             <div className="card-body p-4">
               <div className="text-center">
                 <h5 className="fw-bolder">{libro.title}</h5>
               </div>
               <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div className="text-center"><a className="btn btn-outline-light mt-auto" href="/">Add to cart</a></div>
+                <div className="text-center">
+                  <button onClick={() => addToCart(libro)} className="btn btn-outline-light mt-auto" type="button">Add to cart</button>
+                </div>
               </div>
             </div>
           </div>
         ))}
       </div>
 
+      <About></About>
+      <Contact></Contact>
     </section >
   )
 }

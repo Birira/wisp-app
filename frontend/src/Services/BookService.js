@@ -1,5 +1,3 @@
-import env from "react-dotenv";
-
 class BookService {
     constructor() {
         this.URI = `${import.meta.env.VITE_API_URL}/api/books`;
