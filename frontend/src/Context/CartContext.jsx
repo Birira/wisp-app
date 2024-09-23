@@ -1,4 +1,5 @@
 import { createContext, useState } from 'react'
+import Cookies from "js-cookie"
 
 export const CartContext = createContext()
 
@@ -6,27 +7,28 @@ export const CartContextProvider = ({ children }) => {
 
     const [cart, setCart] = useState([])
     const addToCart = product => {
-        const productInCart = cart.findIndex(item => item._id === product._id)
-
-        if (productInCart >= 0 ){
-            const newCart = structuredClone(cart)
-            newCart[productInCart].quantity += 1
-            return setCart(newCart)
-        }
-
+        
         setCart(prevState => ([
             ...prevState,
             {
-                ...product,
-                quantity: 1
+                ...product
             }
         ]))
+    }
+
+    const removeFromCart = product => {
+        setCart(prevState => prevState.filter(item => item._id !== product._id))
+    }
+    const clearCart = () =>{
+        setCart([])
     }
 
     return (
         <CartContext.Provider value={{
             cart,
-            addToCart
+            addToCart,
+            removeFromCart,
+            clearCart
         }}>
             {children}
         </CartContext.Provider>

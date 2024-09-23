@@ -6,8 +6,12 @@ import Contact from "./Contact";
 import { useCart } from "../hooks/useCart.js";
 
 const ImageList = () => {
-  const { addToCart, cart } = useCart();
+  const { addToCart, cart, removeFromCart } = useCart();
   const Libros = useContext(ShopContext);
+
+  const checkProductInCart = product => {
+    return cart.some(item => item._id === product._id)
+  }
   return (
     <section className="contianer m-5">
       <h1 className='text-center'>Galería de Fotografía</h1>
@@ -25,7 +29,9 @@ const ImageList = () => {
               </div>
               <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                 <div className="text-center">
-                  <button onClick={() => addToCart(libro)} className="btn btn-outline-light mt-auto" type="button">Add to cart</button>
+                  <button onClick={() => checkProductInCart(libro)
+                    ? removeFromCart(libro)
+                    : addToCart(libro)} className="btn btn-outline-light mt-auto" type="button">{`${checkProductInCart(libro) ? 'Eliminar del carrito' : 'Agregar al carrito'}`}</button>
                 </div>
               </div>
             </div>

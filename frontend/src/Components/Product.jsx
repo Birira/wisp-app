@@ -8,9 +8,14 @@ const Product = () => {
 
     const { id } = useParams();
     const Libros = useContext(ShopContext);
-    const { addToCart, cart } = useCart();
+    const { addToCart, cart, removeFromCart } = useCart();
 
     const dir = Libros.find(Libro => Libro._id === id);
+
+    const checkProductInCart = product => {
+        return cart.some(item => item._id === product._id)
+    }
+
 
     return (
         <section className="py-5">
@@ -27,7 +32,9 @@ const Product = () => {
                         </div>
                         <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div className="text-center">
-                                <button onClick={() => addToCart(dir)} className="btn btn-outline-light mt-auto" type="button">Add to cart</button>
+                                <button onClick={() => checkProductInCart(dir)
+                                    ? removeFromCart(dir)
+                                    : addToCart(dir)} className="btn btn-outline-light mt-auto" type="button">{`${checkProductInCart(dir) ? 'Eliminar del carrito' : 'Agregar al carrito'}`}</button>
                             </div>
                         </div>
                     </div>
