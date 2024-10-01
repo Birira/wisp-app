@@ -1,13 +1,15 @@
 import { createContext, useState } from 'react'
-import Cookies from "js-cookie"
+import { useItems } from '../hooks/useItems'
 
 export const CartContext = createContext()
 
 export const CartContextProvider = ({ children }) => {
 
+    const Items = useItems();
+    
     const [cart, setCart] = useState([])
     const addToCart = product => {
-        
+
         setCart(prevState => ([
             ...prevState,
             {
@@ -19,7 +21,7 @@ export const CartContextProvider = ({ children }) => {
     const removeFromCart = product => {
         setCart(prevState => prevState.filter(item => item._id !== product._id))
     }
-    const clearCart = () =>{
+    const clearCart = () => {
         setCart([])
     }
 
@@ -28,7 +30,8 @@ export const CartContextProvider = ({ children }) => {
             cart,
             addToCart,
             removeFromCart,
-            clearCart
+            clearCart,
+            Items
         }}>
             {children}
         </CartContext.Provider>

@@ -1,16 +1,13 @@
 import React from 'react'
-import { useContext } from "react";
-import { ShopContext } from "../Context/ShopContext";
 import { useParams } from 'react-router-dom';
 import { useCart } from '../hooks/useCart';
 
 const Product = () => {
 
     const { id } = useParams();
-    const Libros = useContext(ShopContext);
-    const { addToCart, cart, removeFromCart } = useCart();
+    const { addToCart, cart, removeFromCart, Items } = useCart();
 
-    const dir = Libros.find(Libro => Libro._id === id);
+    const dir = Items.find(item => item._id === id);
 
     const checkProductInCart = product => {
         return cart.some(item => item._id === product._id)
